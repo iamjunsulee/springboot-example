@@ -1,0 +1,24 @@
+spring:
+  profiles:
+    active: local
+
+#local 환경
+---
+spring:
+  h2:
+    console:
+      enabled: true
+  profiles: local
+  datasource:
+    platform: h2
+    url: jdbc:h2:tcp://localhost:9093/junsu:testdb;MVCC=TRUE
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    database-platform: H2
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+server:
+  port: 8088
