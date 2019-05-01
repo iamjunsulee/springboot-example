@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>test page</title>
+</head>
+<body>
+    <h1>test page</h1>
+    <table id="t1">
+        <thead>
+        <tr>
+        <th>ID</th>
+        <th>내용</th>
+        <th>작성자</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="post : ${list}">
+            <td th:text="${post.id}">id</td>
+            <td th:text="${post.content}">id</td>
+            <td th:text="${post.author}">id</td>
+        </tr>
+        </tbody>
+    </table>
+</body>
+</html>

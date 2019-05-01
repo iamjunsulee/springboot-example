@@ -11,7 +11,7 @@ public class PostDto {
     private String content;
     private String author;
 
-    public Post save(){
+    public Post toEntity(){
         return Post.builder()
                 .author(author)
                 .content(content)
