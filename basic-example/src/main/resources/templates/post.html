@@ -19,6 +19,12 @@
             <td th:text="${post.id}">id</td>
             <td th:text="${post.content}">id</td>
             <td th:text="${post.author}">id</td>
+            <td>
+                <a th:href="@{/post/{id}(id=${post.id})}">수정</a>
+            </td>
+            <td>
+                <a th:href="@{/delete/{id}(id=${post.id})}">삭제</a>
+            </td>
         </tr>
         </tbody>
     </table>

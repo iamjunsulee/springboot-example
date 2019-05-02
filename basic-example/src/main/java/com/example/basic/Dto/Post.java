@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Getter
+@Setter
 @Entity
 @NoArgsConstructor
 public class Post {
@@ -18,7 +19,7 @@ public class Post {
     @GeneratedValue
     private long id;
 
-    @Column(columnDefinition = "TEXT", nullable = false)
+    @Column(columnDefinition = "TEXT")
     String content;
 
     String author;

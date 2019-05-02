@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>test page</title>
+</head>
+<body>
+    <h1>update test page</h1>
+    <div>
+        <form action="#" th:action="@{/edit/{id}(id=${list.id})}" th:object="${list}" method="post">
+            <ul>
+                <li>
+                    <p>ID : <input th:field="*{id}"/></p>
+                </li>
+                <li>
+                    <p>내용 : <input th:field="*{content}"/></p>
+                </li>
+                <li>
+                    <p>작성자 : <input th:field="*{author}"/></p>
+                </li>
+            </ul>
+            <button type="submit">수정</button>
+        </form>
+    </div>
+</body>
+</html>

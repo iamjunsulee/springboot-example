@@ -21,8 +21,23 @@ public class PostService {
     롤백하지는 않고, DB에 커밋을 하지 않음.
      */
     @Transactional
-    public Long save(PostDto dto) {
-        return postRepository.save(dto.toEntity()).getId();
+    public void save(PostDto dto) {
+        postRepository.save(dto.toEntity());
+    }
+
+    @Transactional
+    public Post update(Long id, PostDto dto){
+        Post old = postRepository.getOne(id);
+
+        old.setId(id);
+        old.setContent(dto.getContent());
+        old.setAuthor(dto.getAuthor());
+
+        return old;
+    }
+    @Transactional
+    public void delete(Long id) {
+        postRepository.deleteById(id);
     }
 
     @Transactional(readOnly = true)
@@ -31,4 +46,8 @@ public class PostService {
     }
 
 
+    @Transactional(readOnly = true)
+    public Post findOne(Long id) {
+        return postRepository.getOne(id);
+    }
 }
