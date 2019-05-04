@@ -23,7 +23,7 @@
                 <td th:text="${post.title}">id</td>
                 <td th:text="${post.content}">id</td>
                 <td th:text="${post.author}">id</td>
-                <td th:text="${#temporals.format(post.regdate, 'yyyy-mm-dd hh:mm:ss')}">id</td>
+                <td th:text="${#temporals.format(post.regdate, 'yyyy-MM-dd hh:mm:ss')}">id</td>
                 <td>
                     <a th:href="@{/post/{id}(id=${post.id})}">수정</a>
                 </td>
