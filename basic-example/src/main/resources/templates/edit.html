@@ -7,17 +7,13 @@
 <body>
     <h1>update test page</h1>
     <div>
-        <form action="#" th:action="@{/edit/{id}(id=${list.id})}" th:object="${list}" method="post">
+        <form action="#" th:action="@{/edit/{id}(id=${post.id})}" th:object="${post}" method="post">
             <ul>
-                <li>
-                    <p>ID : <input th:field="*{id}"/></p>
-                </li>
-                <li>
-                    <p>내용 : <input th:field="*{content}"/></p>
-                </li>
-                <li>
-                    <p>작성자 : <input th:field="*{author}"/></p>
-                </li>
+                <p hidden>ID : <input th:field="*{id}"/></p>
+                <p>제목 : <input th:field="*{title}"/></p>
+                <p>내용 : </p>
+                <textarea th:field="*{content}"/>
+                <p>작성자 : <input th:field="*{author}"/></p>
             </ul>
             <button type="submit">수정</button>
         </form>

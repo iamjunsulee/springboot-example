@@ -6,27 +6,35 @@
 </head>
 <body>
     <h1>test page</h1>
-    <table id="t1">
-        <thead>
-        <tr>
-        <th>ID</th>
-        <th>내용</th>
-        <th>작성자</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="post : ${list}">
-            <td th:text="${post.id}">id</td>
-            <td th:text="${post.content}">id</td>
-            <td th:text="${post.author}">id</td>
-            <td>
-                <a th:href="@{/post/{id}(id=${post.id})}">수정</a>
-            </td>
-            <td>
-                <a th:href="@{/delete/{id}(id=${post.id})}">삭제</a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+    <th:block th:if="${not #lists.isEmpty(posts)}">
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>제목</th>
+                <th>내용</th>
+                <th>작성자</th>
+                <th>작성일시</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="post : ${posts}">
+                <td th:text="${post.id}">id</td>
+                <td th:text="${post.title}">id</td>
+                <td th:text="${post.content}">id</td>
+                <td th:text="${post.author}">id</td>
+                <td th:text="${#temporals.format(post.regdate, 'yyyy-mm-dd hh:mm:ss')}">id</td>
+                <td>
+                    <a th:href="@{/post/{id}(id=${post.id})}">수정</a>
+                </td>
+                <td>
+                    <a th:href="@{/delete/{id}(id=${post.id})}">삭제</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </th:block>
+    <p th:unless="${not #lists.isEmpty(posts)}">데이터가 없습니다.</p>
+    <a th:href="@{/post/new}">등록</a>
 </body>
 </html>

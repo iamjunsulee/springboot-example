@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -27,14 +29,17 @@ public class PostService {
 
     @Transactional
     public Post update(Long id, PostDto dto){
-        Post old = postRepository.getOne(id);
+        Post old = this.findOne(id).get();
 
         old.setId(id);
+        old.setTitle(dto.getTitle());
         old.setContent(dto.getContent());
         old.setAuthor(dto.getAuthor());
+        old.setRegdate(dto.getRegdate());
 
         return old;
     }
+
     @Transactional
     public void delete(Long id) {
         postRepository.deleteById(id);
@@ -45,9 +50,8 @@ public class PostService {
         return postRepository.findAll();
     }
 
-
     @Transactional(readOnly = true)
-    public Post findOne(Long id) {
-        return postRepository.getOne(id);
+    public Optional<Post> findOne(Long id) {
+        return postRepository.findById(id);
     }
 }

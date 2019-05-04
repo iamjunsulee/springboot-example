@@ -6,6 +6,7 @@ import com.example.basic.Service.PostService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -31,35 +32,42 @@ public class BasicController {
 
     @GetMapping("/")
     public String list(Model model){
-        model.addAttribute("list",postService.findAll());
+        model.addAttribute("posts",postService.findAll());
         return "post";
     }
-
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable Long id){
         postService.delete(id);
         return "redirect:/";
     }
-
     @GetMapping("/post/{id}")
     public String view(@PathVariable Long id, Model model){
-        Post post = postService.findOne(id);
-        PostDto dto = new PostDto();
-        dto.setId(post.getId());
-        dto.setContent(post.getContent());
-        dto.setAuthor(post.getAuthor());
-        model.addAttribute("list",dto);
+        Post post = postService.findOne(id).get();
+        model.addAttribute("post",post);
         return "edit";
     }
-
     @PostMapping("/edit/{id}")
-    public String update(@PathVariable Long id, @ModelAttribute("list") PostDto postDto){
-        System.out.println("--------------------------------");
-        System.out.println(postDto.getAuthor());
-        System.out.println(postDto.getContent());
-        System.out.println("--------------------------------");
-
+    public String update(@PathVariable Long id, @Valid Post post){
+        PostDto postDto = new PostDto(post);
         postService.update(id, postDto);
+        return "redirect:/";
+    }
+    @GetMapping("/post/new")
+    public String newPost(@ModelAttribute @Valid PostDto postDto){
+        return "add";
+    }
+    @PostMapping("/add")
+    public String add(@ModelAttribute @Valid PostDto postDto, BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            return "post/new";
+        }
+        System.out.println("-------------------------------");
+        System.out.println(postDto.getId());
+        System.out.println(postDto.getTitle());
+        System.out.println(postDto.getContent());
+        System.out.println(postDto.getAuthor());
+        System.out.println("-------------------------------");
+        postService.save(postDto);
         return "redirect:/";
     }
 }
