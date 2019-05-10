@@ -56,6 +56,7 @@ public class BasicController {
     public String newPost(@ModelAttribute @Valid PostDto postDto){
         return "add";
     }
+
     @PostMapping("/add")
     public String add(@ModelAttribute @Valid PostDto postDto, BindingResult bindingResult){
         if(bindingResult.hasErrors()){

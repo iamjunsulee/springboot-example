@@ -28,11 +28,21 @@ public class ActionController {
     Entity 클래스가 변경되면 여러 클래스에 영향을 끼치게 됨.
     Entity 클래스와 Controller에서 사용하는 DTO는 분리해서 사용하면 좋음.
      */
-    @PostMapping("/post")
+    @PostMapping("/addPost")
     public void addPost(@RequestBody PostDto dto){
         postService.save(dto);
     }
 
+    @PutMapping("/editPost/{id}")
+    public void editPost(@PathVariable Long id, @RequestBody PostDto dto){
+        postService.update(id, dto);
+    }
+
+    @DeleteMapping("/deletePost/{id}")
+    public void deletePost(@PathVariable Long id){
+        postService.delete(id);
+    }
+    
     @GetMapping("/list")
     public List<Post> list(){
         return postService.findAll();
