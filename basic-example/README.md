@@ -1,12 +1,14 @@
 Spring-Boot Basic Example
 =========================
 >SpringBoot, Thymeleaf, JPA, H2를 사용한 간단 예제
+
 ###Prerequisites
 * Java 8
 * SpringBoot 2.1.4
 * Thymeleaf
 * JPA
 * H2
+
 ##Structure
 ````
 main
@@ -35,6 +37,7 @@ main
         └── add.html
         └── post.html
  ````
+ 
  ##Comment
  ###@Controller와 @RestController의 차이
  >일반적인 Spring MVC 컨트롤러와 RESTful 웹 서비스 컨트롤러의 주요 차이점은 HTTP ResponseBody가 생성되는 방식이다. 
