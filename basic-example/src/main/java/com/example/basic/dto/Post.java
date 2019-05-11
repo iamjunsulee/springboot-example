@@ -36,4 +36,13 @@ public class Post {
         this.author = author;
         this.regdate = LocalDateTime.now();
     }
+
+
+    public  Post(Long id,String title, String content, String author){
+        this.id = id;
+        this.title = title;
+        this.content = content;
+        this.author = author;
+        this.regdate = LocalDateTime.now();
+    }
 }
