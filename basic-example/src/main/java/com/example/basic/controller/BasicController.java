@@ -1,8 +1,8 @@
 package com.example.basic.controller;
 
-import com.example.basic.Dto.Post;
-import com.example.basic.Dto.PostDto;
-import com.example.basic.Service.PostService;
+import com.example.basic.dto.Post;
+import com.example.basic.dto.PostDto;
+import com.example.basic.service.PostService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

@@ -1,14 +1,13 @@
-package com.example.basic.Service;
+package com.example.basic.service;
 
-import com.example.basic.Dto.Post;
-import com.example.basic.Dto.PostDto;
-import com.example.basic.Repository.PostRepository;
+import com.example.basic.dto.Post;
+import com.example.basic.dto.PostDto;
+import com.example.basic.repository.PostRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 

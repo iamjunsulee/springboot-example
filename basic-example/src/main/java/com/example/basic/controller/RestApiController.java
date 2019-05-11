@@ -1,8 +1,8 @@
 package com.example.basic.controller;
 
-import com.example.basic.Dto.Post;
-import com.example.basic.Dto.PostDto;
-import com.example.basic.Service.PostService;
+import com.example.basic.dto.Post;
+import com.example.basic.dto.PostDto;
+import com.example.basic.service.PostService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
-public class ActionController {
+public class RestApiController {
 
     //@Autowired가 아니라 생성자를 통해서 Bean을 주입
     //모든 필드를 인자로 하는 생성자를 Lombok의 @AllArgsConstructor가 대신 생성해준다.
