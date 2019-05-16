@@ -4,6 +4,8 @@ import com.example.basic.dto.Post;
 import com.example.basic.dto.PostDto;
 import com.example.basic.repository.PostRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
@@ -28,8 +30,13 @@ public class PostService {
 
     @Transactional
     public Post update(Long id, PostDto dto){
-        Post old = this.findOne(id).get();
+        Optional<Post> postOptional = this.findOne(id);
 
+        if(!postOptional.isPresent()){
+            return null;
+        }
+
+        Post old = this.findOne(id).get();
         old.setId(id);
         old.setTitle(dto.getTitle());
         old.setContent(dto.getContent());
@@ -52,5 +59,10 @@ public class PostService {
     @Transactional(readOnly = true)
     public Optional<Post> findOne(Long id) {
         return postRepository.findById(id);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<Post> findAll(Pageable pageable){
+        return postRepository.findAll(pageable);
     }
 }

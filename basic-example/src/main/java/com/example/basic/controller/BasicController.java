@@ -4,6 +4,10 @@ import com.example.basic.dto.Post;
 import com.example.basic.dto.PostDto;
 import com.example.basic.service.PostService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -35,6 +39,21 @@ public class BasicController {
         model.addAttribute("posts",postService.findAll());
         return "post";
     }
+
+    /*
+        Pageable
+        - page : 페이지 번호(0부터 시작)
+        - sort : 정렬방식
+        - size : 한 페이지 개수
+        @PageableDefault : 기본 페이지 크기 및 정렬 방식 설정
+     */
+    @GetMapping("/paging")
+    public String page(Model model, @PageableDefault(sort = {"id"},direction = Sort.Direction.ASC,size = 3) Pageable pageable){
+        Page<Post> postPage = postService.findAll(pageable);
+        model.addAttribute("postPage",postPage);
+        return "post";
+    }
+
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable Long id){
         postService.delete(id);
@@ -50,7 +69,7 @@ public class BasicController {
     public String update(@PathVariable Long id, @Valid Post post){
         PostDto postDto = new PostDto(post);
         postService.update(id, postDto);
-        return "redirect:/";
+        return "redirect:/paging";
     }
     @GetMapping("/post/new")
     public String newPost(@ModelAttribute @Valid PostDto postDto){

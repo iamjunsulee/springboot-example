@@ -6,7 +6,7 @@
 </head>
 <body>
     <h1>test page</h1>
-    <th:block th:if="${not #lists.isEmpty(posts)}">
+    <th:block th:if="${not #lists.isEmpty(postPage.content)}">
         <table>
             <thead>
             <tr>
@@ -18,7 +18,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="post : ${posts}">
+            <tr th:each="post : ${postPage.content}">
                 <td th:text="${post.id}">id</td>
                 <td th:text="${post.title}">id</td>
                 <td th:text="${post.content}">id</td>
@@ -34,7 +34,15 @@
             </tbody>
         </table>
     </th:block>
-    <p th:unless="${not #lists.isEmpty(posts)}">데이터가 없습니다.</p>
+    <p th:unless="${not #lists.isEmpty(postPage.content)}">데이터가 없습니다.</p>
     <a th:href="@{/post/new}">등록</a>
+    <div>
+        <div style="display: inline" th:if="${not postPage.first}">
+            <a th:href="@{/paging(page=${postPage.number-1})}">&larr;이전</a>
+        </div>
+        <div style="display: inline" th:if="${not postPage.last}"><!-- /paging?page=1-->
+            <a th:href="@{/paging(page=${postPage.number+1})}">&rarr;다음</a>
+        </div>
+    </div>
 </body>
 </html>
