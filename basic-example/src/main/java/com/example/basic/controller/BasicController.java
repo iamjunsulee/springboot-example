@@ -65,6 +65,11 @@ public class BasicController {
         model.addAttribute("post",post);
         return "edit";
     }
+    @GetMapping("/querydsl/{name}")
+    public String find(@PathVariable String name, Model model){
+        model.addAttribute("post",postService.findByName(name));
+        return "edit";
+    }
     @PostMapping("/edit/{id}")
     public String update(@PathVariable Long id, @Valid Post post){
         PostDto postDto = new PostDto(post);

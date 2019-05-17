@@ -62,6 +62,11 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
+    public List<Post> findByName(String name){
+        return postRepository.findByName(name);
+    }
+
+    @Transactional(readOnly = true)
     public Page<Post> findAll(Pageable pageable){
         return postRepository.findAll(pageable);
     }
