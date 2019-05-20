@@ -6,7 +6,7 @@
 </head>
 <body>
     <h1>test page</h1>
-    <th:block th:if="${not #lists.isEmpty(postPage.content)}">
+    <th:block th:if="${not #lists.isEmpty(posts)}">
         <table>
             <thead>
             <tr>
@@ -18,30 +18,33 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="post : ${postPage.content}">
+            <tr th:each="post : ${posts}">
                 <td th:text="${post.id}">id</td>
                 <td th:text="${post.title}">id</td>
                 <td th:text="${post.content}">id</td>
                 <td th:text="${post.author}">id</td>
                 <td th:text="${#temporals.format(post.regdate, 'yyyy-MM-dd hh:mm:ss')}">id</td>
                 <td>
-                    <a th:href="@{/post/{id}(id=${post.id})}">수정</a>
+                    <a th:href="@{/post/viewPost/{id}(id=${post.id})}">수정</a>
                 </td>
                 <td>
-                    <a th:href="@{/delete/{id}(id=${post.id})}">삭제</a>
+                    <a th:href="@{/post/deletePost/{id}(id=${post.id})}">삭제</a>
                 </td>
             </tr>
             </tbody>
         </table>
     </th:block>
-    <p th:unless="${not #lists.isEmpty(postPage.content)}">데이터가 없습니다.</p>
-    <a th:href="@{/post/new}">등록</a>
+    <p th:unless="${not #lists.isEmpty(posts)}">데이터가 없습니다.</p>
+    <a th:href="@{/post/newPost}">등록</a>
     <div>
-        <div style="display: inline" th:if="${not postPage.first}">
-            <a th:href="@{/paging(page=${postPage.number-1})}">&larr;이전</a>
+        <div style="display: inline" th:if="${not posts.first}">
+            <a th:href="@{__${#httpServletRequest.requestURI}__(page=${posts.number-1})}">&larr;이전</a>
         </div>
-        <div style="display: inline" th:if="${not postPage.last}"><!-- /paging?page=1-->
-            <a th:href="@{/paging(page=${postPage.number+1})}">&rarr;다음</a>
+        <div style="display: inline" th:each="number : ${#numbers.sequence(0, posts.totalPages-1)}">
+            <a th:href="@{__${#httpServletRequest.requestURI}__(page=${number})}">[[${number+1}]]</a>
+        </div>
+        <div style="display: inline" th:if="${not posts.last}"><!-- /paging?page=1-->
+            <a th:href="@{__${#httpServletRequest.requestURI}__(page=${posts.number+1})}">&rarr;다음</a>
         </div>
     </div>
 </body>

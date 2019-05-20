@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
+@RequestMapping("/api")
 public class RestApiController {
 
     //@Autowired가 아니라 생성자를 통해서 Bean을 주입

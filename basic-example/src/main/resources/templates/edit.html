@@ -7,7 +7,7 @@
 <body>
     <h1>update test page</h1>
     <div>
-        <form action="#" th:action="@{/edit/{id}(id=${post.id})}" th:object="${post}" method="post">
+        <form action="#" th:action="@{/post/modifyPost/{id}(id=${post.id})}" th:object="${post}" method="post">
             <ul>
                 <p hidden>ID : <input th:field="*{id}"/></p>
                 <p>제목 : <input th:field="*{title}"/></p>
