@@ -70,4 +70,9 @@ public class PostService {
     public Page<Post> findAll(Pageable pageable){
         return postRepository.findAll(pageable);
     }
+
+    @Transactional(readOnly = true)
+    public Page<Post> findAllByQueryDsl(Pageable pageable){
+        return postRepository.findAllByQueryDsl(pageable);
+    }
 }

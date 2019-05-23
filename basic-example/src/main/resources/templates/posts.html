@@ -15,6 +15,9 @@
                 <th>내용</th>
                 <th>작성자</th>
                 <th>작성일시</th>
+                <th>
+                    <a th:href="@{/post/newPost}">등록</a>
+                </th>
             </tr>
             </thead>
             <tbody>
@@ -35,7 +38,6 @@
         </table>
     </th:block>
     <p th:unless="${not #lists.isEmpty(posts)}">데이터가 없습니다.</p>
-    <a th:href="@{/post/newPost}">등록</a>
     <div>
         <div style="display: inline" th:if="${not posts.first}">
             <a th:href="@{__${#httpServletRequest.requestURI}__(page=${posts.number-1})}">&larr;이전</a>
@@ -43,7 +45,7 @@
         <div style="display: inline" th:each="number : ${#numbers.sequence(0, posts.totalPages-1)}">
             <a th:href="@{__${#httpServletRequest.requestURI}__(page=${number})}">[[${number+1}]]</a>
         </div>
-        <div style="display: inline" th:if="${not posts.last}"><!-- /paging?page=1-->
+        <div style="display: inline" th:if="${not posts.last}"><!-- /pages?page=1-->
             <a th:href="@{__${#httpServletRequest.requestURI}__(page=${posts.number+1})}">&rarr;다음</a>
         </div>
     </div>

@@ -34,15 +34,22 @@ public class BasicController {
         @PageableDefault : 기본 페이지 크기 및 정렬 방식 설정
      */
     @GetMapping("/pages")
-    public String pages(Model model, @PageableDefault(sort = {"id"},direction = Sort.Direction.ASC,size = 3) Pageable pageable){
+    public String findAllByPageable(Model model, @PageableDefault(sort = {"id"},direction = Sort.Direction.ASC,size = 3) Pageable pageable){
         Page<Post> postPage = postService.findAll(pageable);
         model.addAttribute("posts",postPage);
         return "posts";
     }
+
+    @GetMapping("/pagesbyquerydsl")
+    public String findAllByQueryDsl(Model model, @PageableDefault(sort = {"id"},direction = Sort.Direction.ASC,size = 5) Pageable pageable){
+        model.addAttribute("posts",postService.findAllByQueryDsl(pageable));
+        return "posts";
+    }
+
     @GetMapping("/deletePost/{id}")
     public String delete(@PathVariable Long id){
         postService.delete(id);
-        return "redirect:/post/list";
+        return "redirect:/post/pagesbyquerydsl";
     }
     @GetMapping("/viewPost/{id}")
     public String findById(@PathVariable Long id, Model model){
@@ -50,16 +57,12 @@ public class BasicController {
         model.addAttribute("post",post);
         return "edit";
     }
-    @GetMapping("/querydsl/{name}")
-    public String findByName(@PathVariable String name, Model model){
-        model.addAttribute("posts",postService.findByName(name));
-        return "posts";
-    }
+
     @PostMapping("/modifyPost/{id}")
     public String update(@PathVariable Long id, @Valid Post post){
         PostDto postDto = new PostDto(post);
         postService.update(id, postDto);
-        return "redirect:/post/pages";
+        return "redirect:/post/pagesbyquerydsl";
     }
     @GetMapping("/newPost")
     public String newPost(@ModelAttribute @Valid PostDto postDto){
@@ -72,6 +75,6 @@ public class BasicController {
             return "newPost";
         }
         postService.save(postDto);
-        return "redirect:/post/list";
+        return "redirect:/post/pagesbyquerydsl";
     }
 }
