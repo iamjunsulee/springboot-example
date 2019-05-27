@@ -41,7 +41,7 @@ public class BasicController {
     }
 
     @GetMapping("/pagesbyquerydsl")
-    public String findAllByQueryDsl(Model model, @PageableDefault(sort = {"id"},direction = Sort.Direction.ASC,size = 5) Pageable pageable){
+    public String findAllByQueryDsl(Model model, @PageableDefault(sort = {"id"},direction = Sort.Direction.ASC,size = 10) Pageable pageable){
         model.addAttribute("posts",postService.findAllByQueryDsl(pageable));
         return "posts";
     }
