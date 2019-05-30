@@ -20,7 +20,11 @@ public class BasicApplication implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) {
         for(int i = 1;i <= 120;i++) {
-            postRepository.save(new Post("제목"+i,"내용"+i,"이준수"));
+            if(i % 2 == 0){
+                postRepository.save(new Post("제목"+i,"내용"+i,"이준수"));
+            }else {
+                postRepository.save(new Post("제목"+i,"내용"+i,"삼준수"));
+            }
         }
     }
 }

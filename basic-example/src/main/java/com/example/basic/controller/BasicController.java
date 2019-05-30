@@ -2,6 +2,7 @@ package com.example.basic.controller;
 
 import com.example.basic.dto.Post;
 import com.example.basic.dto.PostDto;
+import com.example.basic.dto.Search;
 import com.example.basic.service.PostService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -14,6 +15,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @AllArgsConstructor
@@ -42,7 +45,30 @@ public class BasicController {
 
     @GetMapping("/pagesbyquerydsl")
     public String findAllByQueryDsl(Model model, @PageableDefault(sort = {"id"},direction = Sort.Direction.ASC,size = 10) Pageable pageable){
+        Map<String, Integer> map = new HashMap<>();
+        map.put("title",1);
+        map.put("author",2);
+
+        Search search = new Search();
+
         model.addAttribute("posts",postService.findAllByQueryDsl(pageable));
+        model.addAttribute("conditions",map);
+        model.addAttribute("search",search);
+        return "posts";
+    }
+
+    @GetMapping("/findBy")
+    public String findByCondition(Model model, @ModelAttribute @Valid Search search, @PageableDefault(sort = {"id"},direction = Sort.Direction.ASC,size = 10) Pageable pageable){
+        Map<String, Integer> map = new HashMap<>();
+        map.put("title",1);
+        map.put("author",2);
+
+        Search s = new Search();
+
+        model.addAttribute("posts",postService.findByCondition(search, pageable));
+        model.addAttribute("conditions",map);
+        model.addAttribute("search",s);
+
         return "posts";
     }
 

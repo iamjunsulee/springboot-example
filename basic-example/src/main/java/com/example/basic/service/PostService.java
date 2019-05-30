@@ -2,6 +2,7 @@ package com.example.basic.service;
 
 import com.example.basic.dto.Post;
 import com.example.basic.dto.PostDto;
+import com.example.basic.dto.Search;
 import com.example.basic.repository.PostRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -74,5 +75,10 @@ public class PostService {
     @Transactional(readOnly = true)
     public Page<Post> findAllByQueryDsl(Pageable pageable){
         return postRepository.findAllByQueryDsl(pageable);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<Post> findByCondition(Search search, Pageable pageable){
+        return postRepository.findByCondition(search, pageable);
     }
 }

@@ -57,5 +57,12 @@
             <a th:href="@{__${#httpServletRequest.requestURI}__(page=${posts.totalPages-1})}">끝</a>
         </div>
     </div>
+    <form th:action="@{/post/findBy}" th:object="${search}" method="get">
+        <select th:field="*{value}" style="margin-top: 10px">
+            <option th:each="item : ${conditions.entrySet()}" th:value="${item.value}" th:text="${item.key}"></option>
+        </select>
+        <input th:field="*{name}" type="text"/>
+        <button type="submit">Search</button>
+    </form>
 </body>
 </html>
