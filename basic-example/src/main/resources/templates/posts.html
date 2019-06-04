@@ -45,13 +45,13 @@
             <a th:href="@{__${#httpServletRequest.requestURI}__(page=0)}">처음</a>
         </div>
         <div style="display: inline"><!-- /pages?page=1-->
-            <a th:href="${posts.first} ? '#' : @{__${#httpServletRequest.requestURI}__(page=${posts.number-1})}">&lt;</a>
+            <a th:href="${posts.first} ? '#' : @{__${#httpServletRequest.requestURI}__(value=${search.value},name=${search.name},page=${posts.number-1})}">&lt;</a>
         </div>
         <div style="display: inline" th:each="number : ${#numbers.sequence(start, last)}">
-            <a th:href="@{__${#httpServletRequest.requestURI}__(page=${number})}" th:text="${number+1}"></a>
+            <a th:href="@{__${#httpServletRequest.requestURI}__(value=${search.value},name=${search.name},page=${number})}" th:text="${number+1}"></a>
         </div>
         <div style="display: inline"><!-- /pages?page=1-->
-            <a th:href="${posts.last} ? '#' : @{__${#httpServletRequest.requestURI}__(page=${posts.number+1})}">&gt;</a>
+            <a th:href="${posts.last} ? '#' : @{__${#httpServletRequest.requestURI}__(value=${search.value},name=${search.name},page=${posts.number+1})}">&gt;</a>
         </div>
         <div style="display: inline"><!-- 마지막 페이지로 -->
             <a th:href="@{__${#httpServletRequest.requestURI}__(page=${posts.totalPages-1})}">끝</a>

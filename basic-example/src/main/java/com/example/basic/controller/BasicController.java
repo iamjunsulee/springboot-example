@@ -63,11 +63,9 @@ public class BasicController {
         map.put("title",1);
         map.put("author",2);
 
-        Search s = new Search();
-
         model.addAttribute("posts",postService.findByCondition(search, pageable));
         model.addAttribute("conditions",map);
-        model.addAttribute("search",s);
+        model.addAttribute("search",search);
 
         return "posts";
     }
