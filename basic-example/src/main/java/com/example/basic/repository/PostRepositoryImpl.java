@@ -1,7 +1,6 @@
 package com.example.basic.repository;
 
 import com.example.basic.dto.Post;
-import com.example.basic.dto.Search;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -20,14 +19,14 @@ public class PostRepositoryImpl implements PostRepositoryCustom {
     private final JPAQueryFactory jpaQueryFactory;
 
     @Override
-    public List<Post> findByName(String name){
+    public List<Post> findByName(String name) {
         return jpaQueryFactory.selectFrom(post)
                 .where(post.author.eq(name))
                 .fetch();
     }
 
     @Override
-    public Page<Post> findAllByQueryDsl(Pageable pageable){
+    public Page<Post> findAllByQueryDsl(Pageable pageable) {
         QueryResults<Post> results = jpaQueryFactory.selectFrom(post)
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
@@ -37,10 +36,10 @@ public class PostRepositoryImpl implements PostRepositoryCustom {
     }
 
     @Override
-    public Page<Post> findByCondition(Search search, Pageable pageable){
+    public Page<Post> findByCondition(String name, String title, Pageable pageable) {
         QueryResults<Post> results
                 = jpaQueryFactory.selectFrom(post)
-                .where(isEqual(search.getName(), search.getValue()))
+                .where(eqAuthor(name), eqTitle(title))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetchResults();
@@ -48,16 +47,17 @@ public class PostRepositoryImpl implements PostRepositoryCustom {
         return new PageImpl<>(results.getResults(), pageable, results.getTotal());
     }
 
-    private BooleanExpression isEqual(String name, int value){
+    private BooleanExpression eqTitle(String title) {
+        if (StringUtils.isEmpty(title)) {
+            return null;
+        }
+        return post.title.eq(title);
+    }
+
+    private BooleanExpression eqAuthor(String name) {
         if(StringUtils.isEmpty(name)){
             return null;
         }
-        if(value == 1){
-            return post.title.eq(name);
-        }else if(value == 2) {
-            return post.author.eq(name);
-        }else{
-            return null;
-        }
+        return post.author.eq(name);
     }
 }

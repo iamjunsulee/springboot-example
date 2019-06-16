@@ -3,82 +3,42 @@ package com.example.basic.service;
 import com.example.basic.dto.Post;
 import com.example.basic.dto.PostDto;
 import com.example.basic.dto.Search;
-import com.example.basic.repository.PostRepository;
-import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
-@Service
-@AllArgsConstructor
-public class PostService {
-    private PostRepository postRepository;
 
-    /*
-    DB 데이터를 등록/수정/삭제하는 메소드에는 @Transactional 사용한다.
-    해당 annotation은 메소드 내에서 exception 발생 시, DB 작업을 초기화시킨다.
-    롤백하지는 않고, DB에 커밋을 하지 않음.
-     */
-    @Transactional
-    public void save(PostDto dto) {
-        postRepository.save(dto.toEntity());
-    }
+
+public interface PostService {
 
     @Transactional
-    public Post update(Long id, PostDto dto){
-        Optional<Post> postOptional = this.findOne(id);
-
-        if(!postOptional.isPresent()){
-            return null;
-        }
-
-        Post old = this.findOne(id).get();
-        old.setId(id);
-        old.setTitle(dto.getTitle());
-        old.setContent(dto.getContent());
-        old.setAuthor(dto.getAuthor());
-        old.setRegdate(dto.getRegdate());
-
-        return old;
-    }
+    void save(PostDto dto);
 
     @Transactional
-    public void delete(Long id) {
-        postRepository.deleteById(id);
-    }
+    Post update(Long id, PostDto dto);
+
+    @Transactional
+    void delete(Long id) ;
 
     @Transactional(readOnly = true)
-    public List<Post> findAll(){
-        return postRepository.findAll();
-    }
+    List<Post> findAll();
 
     @Transactional(readOnly = true)
-    public Optional<Post> findOne(Long id) {
-        return postRepository.findById(id);
-    }
+    Optional<Post> findOne(Long id);
 
     @Transactional(readOnly = true)
-    public List<Post> findByName(String name){
-        return postRepository.findByName(name);
-    }
+    List<Post> findByName(String name);
 
     @Transactional(readOnly = true)
-    public Page<Post> findAll(Pageable pageable){
-        return postRepository.findAll(pageable);
-    }
+    Page<Post> findAll(Pageable pageable);
 
     @Transactional(readOnly = true)
-    public Page<Post> findAllByQueryDsl(Pageable pageable){
-        return postRepository.findAllByQueryDsl(pageable);
-    }
+    Page<Post> findAllByQueryDsl(Pageable pageable);
 
     @Transactional(readOnly = true)
-    public Page<Post> findByCondition(Search search, Pageable pageable){
-        return postRepository.findByCondition(search, pageable);
-    }
+    Page<Post> findByCondition(Search search, Pageable pageable);
 }

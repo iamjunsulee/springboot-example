@@ -42,7 +42,7 @@
     <div th:with="start=${(posts.number/6)*6},
                     last=(${start + 5 < posts.totalPages ? start + 5 : posts.totalPages-1})">
         <div style="display: inline"><!-- 첫 페이지로 -->
-            <a th:href="@{__${#httpServletRequest.requestURI}__(page=0)}">처음</a>
+            <a th:href="@{__${#httpServletRequest.requestURI}__(value=${search.value},name=${search.name},page=0)}">처음</a>
         </div>
         <div style="display: inline"><!-- /pages?page=1-->
             <a th:href="${posts.first} ? '#' : @{__${#httpServletRequest.requestURI}__(value=${search.value},name=${search.name},page=${posts.number-1})}">&lt;</a>
@@ -54,7 +54,7 @@
             <a th:href="${posts.last} ? '#' : @{__${#httpServletRequest.requestURI}__(value=${search.value},name=${search.name},page=${posts.number+1})}">&gt;</a>
         </div>
         <div style="display: inline"><!-- 마지막 페이지로 -->
-            <a th:href="@{__${#httpServletRequest.requestURI}__(page=${posts.totalPages-1})}">끝</a>
+            <a th:href="@{__${#httpServletRequest.requestURI}__(value=${search.value},name=${search.name},page=${posts.totalPages-1})}">끝</a>
         </div>
     </div>
     <form th:action="@{/post/findBy}" th:object="${search}" method="get">
