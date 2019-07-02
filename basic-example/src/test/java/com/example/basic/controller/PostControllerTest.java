@@ -21,8 +21,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(BasicController.class)  //controller를 테스트하기 위한 annotation
-public class BasicControllerTest {
+@WebMvcTest(PostController.class)  //controller를 테스트하기 위한 annotation
+public class PostControllerTest {
     @Autowired
     private MockMvc mvc;
 

@@ -21,7 +21,7 @@ import java.util.Map;
 @Controller
 @AllArgsConstructor
 @RequestMapping("/post")
-public class BasicController {
+public class PostController {
     private PostService postService;
 
     @GetMapping("/list")
