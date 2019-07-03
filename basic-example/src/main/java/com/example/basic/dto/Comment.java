@@ -14,8 +14,8 @@ import javax.persistence.*;
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "COMMENT_SEQ_GENERATOR")
-    @Column(name="seq")
-    private Long seq;
+    @Column(name="COMMENT_ID")
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "POST_ID")

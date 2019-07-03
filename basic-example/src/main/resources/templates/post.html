@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>post</title>
+</head>
+<body>
+    <h1>Post</h1>
+    <div>
+        <h1 th:text="${post.title}">
+        </h1>
+        <div th:text="${post.content}">
+        </div>
+    </div>
+    <form th:object="${commentDto}" th:action="@{/}" method="post">
+        <ul th:each="comment : ${post.comments}">
+            <li>
+                <div>
+                    <p th:text="${comment.content}">This is really awesome snippet!</p>
+                </div>
+            </li>
+        </ul>
+    </form>
+</body>
+</html>

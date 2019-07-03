@@ -1,5 +1,6 @@
 package com.example.basic.controller;
 
+import com.example.basic.dto.CommentDto;
 import com.example.basic.dto.Post;
 import com.example.basic.dto.PostDto;
 import com.example.basic.dto.Search;
@@ -76,12 +77,17 @@ public class PostController {
         return "redirect:/post/pagesbyquerydsl";
     }
     @GetMapping("/viewPost/{id}")
+    public String viewPost(@PathVariable Long id, Model model, @ModelAttribute CommentDto commentDto){
+        Post post = postService.findOne(id).get();
+        model.addAttribute("post",post);
+        return "post";
+    }
+    @GetMapping("/editPost/{id}")
     public String findById(@PathVariable Long id, Model model){
         Post post = postService.findOne(id).get();
         model.addAttribute("post",post);
         return "edit";
     }
-
     @PostMapping("/modifyPost/{id}")
     public String update(@PathVariable Long id, @Valid Post post){
         PostDto postDto = new PostDto(post);

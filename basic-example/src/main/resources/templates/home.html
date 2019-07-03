@@ -2,10 +2,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>test page</title>
+    <title>Home</title>
+    <script type="text/javascript" th:inline="javascript">
+        function viewPost(postId){
+            location.href = "/post/viewPost/"+postId;
+        }
+    </script>
 </head>
 <body>
-    <h1>test page</h1>
+    <h1>Home</h1>
     <th:block th:if="${not #lists.isEmpty(posts)}">
         <table>
             <thead>
@@ -21,14 +26,14 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="post : ${posts}">
+            <tr th:each="post : ${posts}" th:onclick="'javascript:viewPost(\'' + ${post.id} + '\');'">
                 <td th:text="${post.id}">id</td>
                 <td th:text="${post.title}">id</td>
                 <td th:text="${post.content}">id</td>
                 <td th:text="${post.author}">id</td>
                 <td th:text="${#temporals.format(post.regdate, 'yyyy-MM-dd hh:mm:ss')}">id</td>
                 <td>
-                    <a th:href="@{/post/viewPost/{id}(id=${post.id})}">수정</a>
+                    <a th:href="@{/post/editPost/{id}(id=${post.id})}">수정</a>
                 </td>
                 <td>
                     <a th:href="@{/post/deletePost/{id}(id=${post.id})}">삭제</a>

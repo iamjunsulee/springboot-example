@@ -25,12 +25,16 @@ public class BasicApplication implements ApplicationRunner {
         for(int i = 1;i <= 120;i++) {
             if(i % 2 == 0){
                 Post post = new Post("제목"+i,"내용"+i,"이준수");
+                Comment comment = new Comment("댓글입니다."+i,post);
+                post.addComment(comment);
                 postRepository.save(post);
-                commentRepository.save(new Comment("댓글입니다."+i,post));
+                commentRepository.save(comment);
             }else {
                 Post post = new Post("제목"+i,"내용"+i,"삼준수");
+                Comment comment = new Comment("댓글입니다."+i,post);
+                post.addComment(comment);
                 postRepository.save(post);
-                commentRepository.save(new Comment("댓글입니다."+i,post));
+                commentRepository.save(comment);
             }
         }
     }

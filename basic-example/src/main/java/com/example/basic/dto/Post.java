@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -18,7 +19,7 @@ import java.util.List;
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "POST_SEQ_GENERATOR")
-    private long id;
+    private Long id;
 
     private String title;
 
@@ -30,7 +31,7 @@ public class Post {
     private LocalDateTime regdate;
 
     @OneToMany(mappedBy = "post", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<Comment> comment;
+    private List<Comment> comments = new ArrayList<Comment>();
     /*
     생성자와 빌더는 생성시점에 값을 채워주는 역할은 똑같지만,
     생성자의 경우, 값이 다르게 들어간 경우, 실제로 코드를 실행하기전까진 전혀 문제를 찾을 수 없다.
@@ -50,5 +51,9 @@ public class Post {
         this.content = content;
         this.author = author;
         this.regdate = LocalDateTime.now();
+    }
+
+    public void addComment(Comment comment){
+        this.comments.add(comment);
     }
 }
