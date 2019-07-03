@@ -28,4 +28,4 @@ spring:
       enabled: true
 
 server:
-  port: 8088
+  port: 9099

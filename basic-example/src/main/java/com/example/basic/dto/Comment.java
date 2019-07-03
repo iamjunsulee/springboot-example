@@ -10,6 +10,7 @@ import javax.persistence.*;
 @Setter
 @Getter
 @NoArgsConstructor
+@SequenceGenerator(name="COMMENT_SEQ_GENERATOR", sequenceName = "COMMENT_SEQ", initialValue = 1, allocationSize = 1)
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "COMMENT_SEQ_GENERATOR")

@@ -27,7 +27,7 @@ public class PostController {
     @GetMapping("/list")
     public String list(Model model){
         model.addAttribute("posts",postService.findAll());
-        return "posts";
+        return "home";
     }
     /*
         Pageable
@@ -40,7 +40,7 @@ public class PostController {
     public String findAllByPageable(Model model, @PageableDefault(sort = {"id"},direction = Sort.Direction.ASC,size = 3) Pageable pageable){
         Page<Post> postPage = postService.findAll(pageable);
         model.addAttribute("posts",postPage);
-        return "posts";
+        return "home";
     }
 
     @GetMapping("/pagesbyquerydsl")
@@ -54,7 +54,7 @@ public class PostController {
         model.addAttribute("posts",postService.findAllByQueryDsl(pageable));
         model.addAttribute("conditions",map);
         model.addAttribute("search",search);
-        return "posts";
+        return "home";
     }
 
     @GetMapping("/findBy")
@@ -67,7 +67,7 @@ public class PostController {
         model.addAttribute("conditions",map);
         model.addAttribute("search",search);
 
-        return "posts";
+        return "home";
     }
 
     @GetMapping("/deletePost/{id}")

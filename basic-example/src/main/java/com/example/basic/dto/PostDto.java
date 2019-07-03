@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -15,6 +16,7 @@ public class PostDto {
     private String content;
     private String author;
     private LocalDateTime regdate;
+    private List<Comment> comment;
 
     public Post toEntity(){
         return Post.builder()

@@ -30,7 +30,6 @@ public class Post {
     private LocalDateTime regdate;
 
     @OneToMany(mappedBy = "post", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name="post_id")
     private List<Comment> comment;
     /*
     생성자와 빌더는 생성시점에 값을 채워주는 역할은 똑같지만,
