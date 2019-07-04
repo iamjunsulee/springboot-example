@@ -102,7 +102,7 @@ public class PostController {
     @PostMapping("/addPost")
     public String insert(@ModelAttribute @Valid PostDto postDto, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
-            return "newPost";
+            return "add";
         }
         postService.save(postDto);
         return "redirect:/post/pagesbyquerydsl";

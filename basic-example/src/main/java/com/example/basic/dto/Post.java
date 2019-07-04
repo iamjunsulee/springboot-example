@@ -31,7 +31,7 @@ public class Post {
     private LocalDateTime regdate;
 
     @OneToMany(mappedBy = "post", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Comment> comments = new ArrayList<Comment>();
+    private List<Comment> comments = new ArrayList<>();
     /*
     생성자와 빌더는 생성시점에 값을 채워주는 역할은 똑같지만,
     생성자의 경우, 값이 다르게 들어간 경우, 실제로 코드를 실행하기전까진 전혀 문제를 찾을 수 없다.
@@ -51,6 +51,10 @@ public class Post {
         this.content = content;
         this.author = author;
         this.regdate = LocalDateTime.now();
+    }
+
+    public Post(Long id){
+        this.id = id;
     }
 
     public void addComment(Comment comment){
