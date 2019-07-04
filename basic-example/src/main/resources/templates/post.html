@@ -12,11 +12,18 @@
         <div th:text="${post.content}">
         </div>
     </div>
+    <form th:object="${commentDto}" th:action="@{/comment/addComment}" method="post">
+        <ul>
+            <p hidden>ID : <input th:field="*{postId}"/></p>
+            <p>댓글 : <input th:field="*{content}"/></p>
+            <button type="submit">등록</button>
+        </ul>
+    </form>
     <form th:object="${commentDto}" th:action="@{/}" method="post">
         <ul th:each="comment : ${post.comments}">
             <li>
                 <div>
-                    <p th:text="${comment.content}">This is really awesome snippet!</p>
+                    <p th:text="${comment.content}"></p>
                 </div>
             </li>
         </ul>

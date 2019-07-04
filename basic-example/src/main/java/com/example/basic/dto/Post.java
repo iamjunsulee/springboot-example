@@ -30,7 +30,7 @@ public class Post {
 
     private LocalDateTime regdate;
 
-    @OneToMany(mappedBy = "post", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<Comment>();
     /*
     생성자와 빌더는 생성시점에 값을 채워주는 역할은 똑같지만,

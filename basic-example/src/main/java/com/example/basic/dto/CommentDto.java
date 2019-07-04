@@ -1,6 +1,5 @@
 package com.example.basic.dto;
 
-import com.example.basic.service.PostService;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
