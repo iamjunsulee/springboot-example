@@ -3,6 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>post</title>
+    <script type="text/javascript" th:inline="javascript">
+        function deleteComment(postId, commentId) {
+            location.href = "/comment/deleteComment/"+postId+"/"+commentId;
+        }
+    </script>
 </head>
 <body>
     <h1>Post</h1>
@@ -27,7 +32,8 @@
         <ul th:each="comment : ${post.comments}">
             <li>
                 <div>
-                    <p th:text="${comment.content}"></p>
+                    <span th:text="${comment.content}"></span>
+                    <span th:onclick="'javascript:deleteComment(\'' + ${post.id} + '\',\'' + ${comment.id} +'\');'">삭제</span>
                     <p th:text="${#temporals.format(comment.regdate, 'yyyy-MM-dd hh:mm:ss')}"></p>
                 </div>
             </li>

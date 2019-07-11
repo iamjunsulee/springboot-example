@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.NoResultException;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,7 +36,7 @@ public class PostServiceImpl implements PostService{
             return null;
         }
 
-        Post old = this.findOne(id).get();
+        Post old = postOptional.get();
         old.setId(id);
         old.setTitle(dto.getTitle());
         old.setContent(dto.getContent());

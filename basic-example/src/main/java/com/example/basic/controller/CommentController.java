@@ -8,9 +8,8 @@ import com.example.basic.service.PostService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
 import javax.validation.Valid;
 
 @Controller
@@ -31,7 +30,13 @@ public class CommentController {
         if(bindingResult.hasErrors()){
             return "post";
         }
-        commentService.save(new Comment(commentDto.getContent(), new Post(commentDto.getPostId())));
+        commentService.save(new Comment(commentDto.getContent(), postService.findOne(commentDto.getPostId()).get()));
         return "redirect:/post/viewPost/"+commentDto.getPostId();
+    }
+
+    @GetMapping("/deleteComment/{postId}/{commentId}")
+    public String deleteComment(@PathVariable Long postId, @PathVariable Long commentId){
+        commentService.deleteComment(commentId);
+        return "redirect:/post/viewPost/"+postId;
     }
 }
